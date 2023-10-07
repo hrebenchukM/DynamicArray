@@ -43,7 +43,7 @@ void DynamicArray::Output() const
 	{
 		cout << ptr[i] << "\t";
 	}
-	cout << "\n---------------------------------\n";
+	cout << "\n---------------------------------------------------------------------\n";
 }
 int* DynamicArray::GetPointer() const
 {
@@ -54,27 +54,28 @@ int DynamicArray::GetSize() const
 	return size;
 }
 
-void DynamicArray::ReSize(int newSize)
+void DynamicArray::ReSize(int newSize)//void ReSize(int size);// изменение размера массива //передаем еще 2 элемента в конец добавить и получается массив из 7 и указатель перенаправляет
+	//Надо подумать как это реализовать именно перед созданием
 {
-	/*
-	int* newPtr = new int[newSize];
+	int *newPtr = new int[size+newSize];//создали новый пустой на 7 єлементов массив 
 
-		for (int i = 0; i < size; i++)
-		{
-			newPtr[i] = ptr[i];
-		}
+	for (int i = 0; i <size; i++)
+	{
+		newPtr[i] = ptr[i];//заполнили новый массив старыми 5 элементами
+	}
 
-		for (int i = size; i < newSize; i++)
-		{
-			newPtr[i] = 0;
-		}
+	for (int i = 0; i < newSize; i++)
+	{
+		newPtr[size+i] = 0;
+	}
 
-		delete[] ptr;
-		ptr = newPtr;
-		size = newSize;*/
-		
+	delete[] ptr;
+    ptr=newPtr;//перезаписали старый указатель на новый указатель 
+	size = size+newSize;// перезаписали старый размер на новый
+
+	
 }
-
+ 
 void DynamicArray::Sort()
 {
 		int temp;
@@ -97,8 +98,7 @@ void DynamicArray::Sort()
 
 }
 
-int DynamicArray::Search(int a) const 
-{
+int DynamicArray::Search(int a) const {
 	for (int i = 0; i < size; ++i) {
 		if (ptr[i] == a) {
 			return i; 
@@ -109,8 +109,6 @@ int DynamicArray::Search(int a) const
 
 void DynamicArray::Reverse()
 {
-	
-	
 	for (int i = 0; i < size/2; ++i) {
 		int temp = ptr[size - i - 1];
 		ptr[size - i - 1] = ptr[i];
