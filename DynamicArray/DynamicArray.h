@@ -16,19 +16,32 @@ public:
 	int* GetPointer() const;
 	int GetSize() const;
 
-	void ReSize(int newSize);
+
 	void Sort();
 	int Search(int a) const;
 	void Reverse();
+	void ReSize(int newSize);
+	void DownSize(int newSize);
 
 
+
+	DynamicArray operator+(int b);
+	DynamicArray operator-(int b);
+	DynamicArray operator*(int b);
+
+
+	DynamicArray operator-(DynamicArray b);
+	DynamicArray operator+(DynamicArray b);
+
+	DynamicArray& operator++();
+	DynamicArray& operator--();
+		
 	// реилизовать следующие методы:
 	
 	//void Sort();// сортировка(любой алгоритм сортировки)// сортировка по возрастанию
 	//int Search(int a); // поиск элемента в массиве, возвращает индекс наиденного эл., либо -1.
 	// Ќадо подумать какие из этих методов стоит делать константными 
 	//void Reverse(); // перезаписывает последовательность элементов в обратном пор€дке, напрмер 12345 -> 54321// Ќ≈ показывает а перезаписывает(замена в пам€ти)
-
 
 
 };

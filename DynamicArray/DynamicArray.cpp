@@ -8,7 +8,7 @@ DynamicArray::DynamicArray(int S)
 {
 	cout << "Construct by 1 param\n";
 	size = S;
-	ptr = new int[S];
+	ptr = new int[S]{ 0 };
 }
 
 DynamicArray::DynamicArray(const DynamicArray& a)// copy constructor
@@ -28,22 +28,27 @@ DynamicArray::~DynamicArray()
 	{
 		delete[] ptr;
 	}
-	Sleep(1000);
+	
 }
 void DynamicArray::Input()
 {
 	for (int i = 0; i < size; i++)
 	{
-		ptr[i] = rand() % 10;
+		ptr[i] = rand() % 20;
 	}
 }
 void DynamicArray::Output() const
 {
-	for (int i = 0; i < size; i++)
-	{
-		cout << ptr[i] << "\t";
+	if (ptr == nullptr) {
+		cout << "Array is empty\n\n";
 	}
-	cout << "\n---------------------------------------------------------------------\n";
+	else {
+		for (int i = 0; i < size; i++)
+		{
+			cout << ptr[i] << "\t";
+		}
+		cout << "\n-------------------------------------------------------------------------------------------------------------------------\n";
+	}
 }
 int* DynamicArray::GetPointer() const
 {
@@ -76,6 +81,41 @@ void DynamicArray::ReSize(int newSize)//void ReSize(int size);// изменение разме
 	
 }
  
+void DynamicArray::DownSize(int newSize)//void ReSize(int size);// изменение размера массива // отнимаем еще 2 элемента =3 и указатель перенаправл€ет
+//Ќадо подумать как это реализовать именно перед созданием
+{
+
+	if (newSize >= size)
+	{
+		return;
+	}
+	else {
+		int* newPtr = new int[size - newSize];//создали новый пустой на 3 Їлементов массив 
+
+		for (int i = 0; i < size - newSize; i++)
+		{
+			newPtr[i] = ptr[i];//заполнили новый массив старыми 3 элементами
+		}
+
+
+		delete[] ptr;
+		ptr = newPtr;//перезаписали старый указатель на новый указатель 
+		size = size- newSize;// перезаписали старый размер на новый
+
+	}
+	
+
+}
+
+
+
+
+
+
+
+
+
+
 void DynamicArray::Sort()
 {
 		int temp;
@@ -117,3 +157,197 @@ void DynamicArray::Reverse()
 	}
 }
 
+
+DynamicArray DynamicArray::operator+(int b)
+{
+	int newSize = size + b;
+	DynamicArray rez(newSize);
+
+	for (int i = 0; i < size; i++)
+	{
+		rez.ptr[i] = ptr[i];
+	}
+
+	for (int i = 0; i < b; i++)
+	{
+		rez.ptr[size+i] = 0;
+	}
+	return rez;
+
+	//ReSize(b);//ресайзит (себ€)динамик массив и ничего не возвращает 
+	//return *this;//resize делает операции на текущем  this (точка обращени€ к экзмепл€ру/обьекту класса на который вызываютс€ методы)
+	
+}
+
+
+DynamicArray DynamicArray::operator-(int b)
+{
+
+	int newSize = size - b;
+	DynamicArray rez(newSize);
+
+	for (int i = 0; i < newSize; i++)
+	{
+		rez.ptr[i] = ptr[i];
+	}
+	
+	return rez;
+
+	//DownSize(b);//ресайзит (себ€)динамик массив и ничего не возвращает 
+	//return *this;//resize делает операции на текущем  this (точка обращени€ к экзмепл€ру/обьекту класса на который вызываютс€ методы)
+
+}
+
+DynamicArray DynamicArray::operator*(int b)
+{
+	DynamicArray rez(*this);//копи€ а
+	for (int i = 0; i < size; i++)
+	{
+		rez.ptr[i]*=b;
+	}
+	return rez;
+
+}
+
+DynamicArray DynamicArray::operator-(DynamicArray b)
+{
+	DynamicArray rez(size);
+	if (size > b.size) {
+
+		for (int i = 0; i < size; ++i) {
+			rez.ptr[i] = ptr[i] - b.ptr[i];
+		}
+
+		return rez;
+	}
+	else if (size < b.size) {
+
+		for (int i = 0; i <b.size; ++i) {
+			rez.ptr[i] = b.ptr[i] - ptr[i];
+		}
+
+		return rez;
+	}
+	else
+	{
+		return 0;
+	}
+
+	
+	
+}
+
+DynamicArray DynamicArray::operator+(DynamicArray b)
+{
+	int newSize = this->size + b.size;
+	DynamicArray rez(newSize);
+
+	for (int i = 0; i < size; i++)
+	{
+		rez.ptr[i] = ptr[i];
+	}
+
+
+	for (int i = 0; i < b.size; i++)
+	{
+		rez.ptr[size + i] = b.ptr[i];
+	}
+	return rez;
+}
+
+DynamicArray& DynamicArray::operator++()
+{
+	int newSize = size + 1;
+	int* rez = new int[newSize];
+
+
+	for (int i = 0; i < size; ++i) {
+		rez[i] = ptr[i];
+	}
+
+	rez[size]=0;
+
+	delete[] ptr;
+
+	ptr = rez;
+	size = newSize;
+
+		return *this;
+}
+
+DynamicArray& DynamicArray::operator--()
+{
+	int newSize = size - 1;
+	int* rez = new int[newSize];
+
+	for (int i = 0; i < newSize; ++i) {
+		rez[i] = ptr[i];
+	}
+	delete[] ptr;
+
+	ptr = rez;
+	size = newSize;
+	//ptr[size] = 0;
+	return *this;
+}
+
+
+
+
+//
+//
+//Point Point::operator+(Point b)
+//{
+//	Point rez;
+//	rez.x = this->x + b.x;
+//	rez.y = this->y + b.y;
+//	return rez;
+//
+//	//return Point(this->x+b.x,this->y+b.y);
+//}
+//
+//
+//
+//int Point::operator+(int b)
+//{
+//	return x + y + b;
+//}
+//
+//
+//
+//
+//
+//int Point::operator-(Point b)
+//{
+//	return x - b.x - y - b.y;
+//
+//}
+//
+//int Point::operator*(int b)
+//{
+//	return x * b * y;
+//
+//}
+//
+//
+//int Point::operator*(Point b)
+//{
+//	return x * y * b.x * b.y;
+//}
+//
+//Point& Point::operator++()
+//{
+//	this->x += 10;
+//	this->y += 10;
+//	return *this;
+//}
+//
+//Point& Point::operator--()
+//{
+//	this->x -= 10;
+//	this->y -= 10;
+//	return *this;
+//}
+//
+//
+//
