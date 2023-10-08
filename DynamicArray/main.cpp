@@ -15,15 +15,6 @@ int main()
 {
 
 
-	
-
-
-
-
-
-
-
-
 
 	DynamicArray a(5); // constructor 1 param
 	a.Input();
@@ -73,9 +64,6 @@ int main()
 
 	/*DynamicArray rez3 = a * 2;
 	rez3.Output();*/
-	//	int* x = a.GetPointer();
-//	a.ReSize(2);
-//	cout << *x << endl;
 
 	//a.ReSize(2);
 	//a.Sort();
@@ -84,7 +72,6 @@ int main()
 	//a.Output();
 	//cout << "Result of search:" << a.Search(7) << endl;
 	//DynamicArray b(a); // copy constructor
-	//a.GetPointer()[0] = 100;
 	//b.Output();
 
 	//DynamicArray rezult = GetObj();
