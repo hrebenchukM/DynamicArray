@@ -233,19 +233,27 @@ DynamicArray DynamicArray::operator-(DynamicArray& b)
 			rez.size = 0;
 			return rez;
 		}
-		else if (rez.size>b.size) //10>5
+		else if (rez.size > b.size) //10>5
 		{
 
+			int* temp = rez.ptr;
+			rez.size = rez.size - b.size;
+			rez.ptr = new int[rez.size];
 
-
-			b.size = rez.size - b.size;//5=10-5
-			b.ptr = new int[b.size];//5
-			for (int i = 0; i < b.size; i++) //5
-			{
-				b.ptr[i] = rez.ptr[i];
+			for (int i = 0; i < rez.size; i++) {
+				rez.ptr[i] = temp[i];
 			}
+			delete[]temp;
 			return rez;
+
 		}
+			//b.size = rez.size - b.size;//5=10-5
+			//b.ptr = new int[b.size];//5
+			//for (int i = 0; i < b.size; i++) //5
+			//{
+			//	b.ptr[i] = rez.ptr[i];
+			//}
+			//return rez;
 	return rez;
 }
 

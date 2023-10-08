@@ -19,7 +19,7 @@ int main()
 	DynamicArray a(5); // constructor 1 param
 	a.Input();
 	a.Output();
-	DynamicArray b(10);
+	DynamicArray b(9);
 	b.Input();
 	b.Output();
 	
@@ -50,12 +50,13 @@ int main()
 	rez4.Output();
 	
 
-	++rez;
-	cout << "Add 1 element in array a[5]=a[6]" << endl;
-	rez.Output();
 	
 	--rez;
-	cout << "delete 1 element in array a[6]=a[5]" << endl;
+	cout << "delete 1 element in array a[5]=a[4]" << endl;
+	rez.Output();
+
+	++rez;
+	cout << "Add 1 element in array a[4]=a[5]" << endl;
 	rez.Output();
 
 
