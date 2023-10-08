@@ -209,33 +209,95 @@ DynamicArray DynamicArray::operator*(int b)
 
 }
 
-DynamicArray DynamicArray::operator-(DynamicArray b)
+
+
+	
+DynamicArray DynamicArray::operator-(DynamicArray& b)
 {
-	DynamicArray rez(size);
-	if (size > b.size) {
-
-		for (int i = 0; i < size; ++i) {
-			rez.ptr[i] = ptr[i] - b.ptr[i];
-		}
-
-		return rez;
-	}
-	else if (size < b.size) {
-
-		for (int i = 0; i <b.size; ++i) {
-			rez.ptr[i] = b.ptr[i] - ptr[i];
-		}
-
-		return rez;
-	}
-	else
-	{
-		return 0;
-	}
-
+	DynamicArray rez(*this);//копия а
 	
-	
+		if (b.size > rez.size)//10>5
+		{
+			rez.size = b.size - rez.size;//5=10-5
+			rez.ptr = new int[rez.size];//5
+			for (int i = 0; i < rez.size; i++) //5
+			{
+				rez.ptr[i] = b.ptr[i];//arrA[5]=arrB[10-5];
+			}
+			return rez;
+		}
+		else if (b.size == rez.size)//5=5 (10=10)
+		{
+			delete[] rez.ptr;
+			rez.ptr = nullptr;
+			rez.size = 0;
+			return rez;
+		}
+		else if (rez.size>b.size) //10>5
+		{
+
+
+
+			b.size = rez.size - b.size;//5=10-5
+			b.ptr = new int[b.size];//5
+			for (int i = 0; i < b.size; i++) //5
+			{
+				b.ptr[i] = rez.ptr[i];
+			}
+			return rez;
+		}
+	return rez;
 }
+
+
+
+
+
+//
+//DynamicArray DynamicArray::operator-(DynamicArray &b)
+//{
+//
+//	//size=5,b.size=10
+//	if (b.size > size) {//10>5
+//		DynamicArray rez(b.size);//[10]
+//		for (int i = 0;i < b.size; i++)//10
+//		{
+//			rez.ptr[i] = b.ptr[i];//copy big array
+//		}
+//		for (int i = 0; i < size; i++)//5
+//		{
+//			rez.ptr[i] = rez.ptr[i] - ptr[i];// b.ptr[i]-ptr[i]
+//
+//		}
+//		return rez;
+//	}
+//	//size=10,b.size=5
+//	else if (size>b.size) {//10>5
+//		DynamicArray rez(size);//[10]
+//		for (int i = 0; i < size; i++)//10
+//		{
+//			rez.ptr[i] = ptr[i];//copy big array
+//		}
+//		for (int i = 0; i < b.size; i++)//10
+//		{
+//			rez.ptr[i] = rez.ptr[i] -b.ptr[i];// ptr[i]-b.ptr[i]
+//
+//		} 
+//		return rez;
+//	}
+//	else //(size ==b.size)
+//	{
+//		DynamicArray rez(b.size);
+//		for (int i = 0; i < size; i++)
+//		{
+//			
+//			rez.ptr[i] =  b.ptr[i]-ptr[i];
+//		}
+//		return rez;
+//	}
+//		
+//
+//}
 
 DynamicArray DynamicArray::operator+(DynamicArray b)
 {
@@ -283,71 +345,15 @@ DynamicArray& DynamicArray::operator--()
 	for (int i = 0; i < newSize; ++i) {
 		rez[i] = ptr[i];
 	}
-	delete[] ptr;
+	
 
+	delete[] ptr;
+	
 	ptr = rez;
 	size = newSize;
-	//ptr[size] = 0;
 	return *this;
 }
 
 
 
 
-//
-//
-//Point Point::operator+(Point b)
-//{
-//	Point rez;
-//	rez.x = this->x + b.x;
-//	rez.y = this->y + b.y;
-//	return rez;
-//
-//	//return Point(this->x+b.x,this->y+b.y);
-//}
-//
-//
-//
-//int Point::operator+(int b)
-//{
-//	return x + y + b;
-//}
-//
-//
-//
-//
-//
-//int Point::operator-(Point b)
-//{
-//	return x - b.x - y - b.y;
-//
-//}
-//
-//int Point::operator*(int b)
-//{
-//	return x * b * y;
-//
-//}
-//
-//
-//int Point::operator*(Point b)
-//{
-//	return x * y * b.x * b.y;
-//}
-//
-//Point& Point::operator++()
-//{
-//	this->x += 10;
-//	this->y += 10;
-//	return *this;
-//}
-//
-//Point& Point::operator--()
-//{
-//	this->x -= 10;
-//	this->y -= 10;
-//	return *this;
-//}
-//
-//
-//

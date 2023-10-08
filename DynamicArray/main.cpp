@@ -25,35 +25,47 @@ int main()
 
 
 
-	DynamicArray a(10); // constructor 1 param
+	DynamicArray a(5); // constructor 1 param
 	a.Input();
 	a.Output();
-	DynamicArray b(5);
+	DynamicArray b(10);
 	b.Input();
 	b.Output();
-	//DynamicArray b(a);
 	
-	DynamicArray rez = a+10;
-	rez.Output();
+	
+	DynamicArray rez = a;
+	DynamicArray rez0 =a+10;
+	cout << "Elemets from array a[]+ 10 elements=a[20]" << endl;
+	rez0.Output();
 
 	DynamicArray rez1 = a - 2;
+	cout << "Elemets from array a[]-2 elements=a[8]" << endl;
 	rez1.Output();
 
+
+
 	DynamicArray rez2 = a * 2;
+	cout << "Value from array a[]*2" << endl;
 	rez2.Output();
 
 
 
 	DynamicArray rez3 = a - b;
+	cout << "N of elements from array a[]- N of elements from array b[]" << endl;
 	rez3.Output();
 
 	DynamicArray rez4 = a + b;
+	cout << "N of elements from array a[]+N of elements from array b[]" << endl;
 	rez4.Output();
 	
 
 	++rez;
+	cout << "Add 1 element in array a[5]=a[6]" << endl;
+	rez.Output();
 	
 	--rez;
+	cout << "delete 1 element in array a[6]=a[5]" << endl;
+	rez.Output();
 
 
 

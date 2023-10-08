@@ -30,7 +30,7 @@ public:
 	DynamicArray operator*(int b);
 
 
-	DynamicArray operator-(DynamicArray b);
+	DynamicArray operator-( DynamicArray&b);
 	DynamicArray operator+(DynamicArray b);
 
 	DynamicArray& operator++();
